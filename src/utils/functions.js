@@ -8,3 +8,10 @@ export const getParamValues = (url) => {
             return prev;
         }, {});
 };
+
+export const cleanUpAuthToken = str => {
+	return str
+        .split('&')[1]
+        .slice(5)
+};
+

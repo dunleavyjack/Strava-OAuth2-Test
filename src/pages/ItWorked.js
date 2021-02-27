@@ -1,11 +1,17 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 const ItWorked = () => {
-    return(
+    return (
         <div>
-            <h1>It worked</h1>
+            <h1>It worked!</h1>
         </div>
     )
 }
 
-export default ItWorked
+const mapStateToProps = state => {
+    console.log(state.authTokenURL)
+    return {authTokenURL: state.authTokenURL};
+}
+
+export default connect(mapStateToProps)(ItWorked)

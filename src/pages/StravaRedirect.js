@@ -1,6 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
+import { connect } from 'react-redux'
 import { setAuthTokens } from '../actions'
+import {cleanUpAuthToken} from '../utils/functions'
 
 class LoggedIn extends React.Component {
     componentDidMount() {
@@ -9,8 +11,9 @@ class LoggedIn extends React.Component {
             if (_.isEmpty(location)) {
                 return history.push('/');
             }
-            console.log(location)
             console.log(location.search)
+            const stravaAuthToken = cleanUpAuthToken(location.search)
+            this.props.setAuthTokens(stravaAuthToken)
             history.push('/itworked');
         } catch (error) {
             history.push('/');
@@ -21,4 +24,11 @@ class LoggedIn extends React.Component {
     }
 }
 
-export default LoggedIn;
+const mapStateToProps = state => {
+    console.log(state.authTokenURL)
+    return { authTokenURL: state.authTokenURL };
+}
+
+export default connect(mapStateToProps, {
+    setAuthTokens
+})(LoggedIn);

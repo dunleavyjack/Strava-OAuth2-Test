@@ -1,10 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import AppRouter from './router/AppRouter'
+import { Provider } from 'react-redux'
+import { createStore} from 'redux';
+
+import AppRouter from './router/AppRouter';
+import reducers from './reducers';
 
 ReactDOM.render(
-    <div>
+    <Provider store={createStore(reducers)}>
         <AppRouter />
-    </div>,
-    document.getElementById("root")
-);
+    </Provider>
+    , document.getElementById("root"));
