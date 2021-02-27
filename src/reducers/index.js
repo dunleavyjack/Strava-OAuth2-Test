@@ -1,22 +1,44 @@
 import { combineReducers } from 'redux'
 
 const authTokenURLReducer = (authTokenURL = null, action) => {
-    if (action.type === 'AUTH_TOKENS') {
-        return action.payload
+    switch (action.type) {
+        case 'SET_AUTH_TOKEN':
+            return action.payload
+        default:
+            return authTokenURL
     }
-    return authTokenURL
 }
 
-const refreshTokenReducer = (refreshToken = null, action) => {
-    if (action.type === 'GET_REFRESH_TOKEN') {
-        return action.payload
+const getRefreshTokenReducer = (refreshToken = null, action) => {
+    switch (action.type) {
+        case 'SET_REFRESH_TOKEN':
+            return action.payload
+        default:
+            return refreshToken
     }
-    return refreshToken
 }
 
+const getAccessTokenReducer = (accessToken = null, action) => {
+    switch (action.type) {
+        case 'SET_ACCESS_TOKEN':
+            return action.payload
+        default:
+            return accessToken
+    }
+}
 
+const getUserIDReducer = (userID=null, action) => {
+    switch (action.type) {
+        case 'SET_USER_ID':
+            return action.payload
+        default:
+            return userID
+    }
+}
 
 export default combineReducers({
     authTokenURL: authTokenURLReducer,
-    refreshToken: refreshTokenReducer 
+    refreshToken: getRefreshTokenReducer,
+    accessToken: getAccessTokenReducer,
+    userID: getUserIDReducer
 })
