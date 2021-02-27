@@ -1,12 +1,13 @@
-import { React, useEffect } from 'react';
+import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux'
 import { setAccessToken, setAuthTokens, setRefreshToken, setUserID, setUserData } from '../actions'
 import { cleanUpAuthToken, testAuthGetter, getUserData } from '../utils/functions'
 
-const StravaRedirect = ({location, history}) => {
-    useEffect(() => {
+class StravaRedirect extends React.Component {
+    componentDidMount() {
         const getThoseDamnTokens = async () => {
+            const { history, location} = this.props
             try {
                 // If not redirected to Strava, return to home
                 if (_.isEmpty(location)) {
@@ -29,13 +30,14 @@ const StravaRedirect = ({location, history}) => {
                 console.log(accessToken)
 
 
-                setAccessToken(accessToken)
-                setRefreshToken(refreshToken)
-                setUserID(userID)
+                this.props.setAccessToken(accessToken)
+                this.props.setRefreshToken(refreshToken)
+                this.props.setUserID(userID)
 
                 // Axios request to get users info
                 const userData = await getUserData(userID, accessToken)
-                setUserData(userData)
+                this.props.setUserData(userData)
+                console.log(this.props)
                 // Once complete, go to display page
                 history.push('/itworked');
             } catch (error) {
@@ -43,12 +45,15 @@ const StravaRedirect = ({location, history}) => {
             }
         }
         getThoseDamnTokens()
-    }, [])
-    return(
-        <div>
-            Loading
-        </div>
-    );
+    }
+
+    render() {
+        return (
+            <div>
+                Loading
+            </div>
+        )
+    };
 };
 
 const mapStateToProps = state => {
@@ -56,5 +61,9 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, {
-    setAuthTokens
+    setAccessToken, 
+    setAuthTokens, 
+    setRefreshToken, 
+    setUserID, 
+    setUserData
 })(StravaRedirect);

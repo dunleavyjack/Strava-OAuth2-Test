@@ -8,7 +8,7 @@ const Home = () => {
     return (
         <div>
             <h1>Home</h1>
-            <button onClick={handleLogin}>Connect to Spotify</button>
+            <button onClick={handleLogin}>Connect with Strava</button>
         </div>
     )
 }

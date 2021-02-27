@@ -48,7 +48,7 @@ export default combineReducers({
     refreshToken: setRefreshTokenReducer,
     accessToken: setAccessTokenReducer,
     userID: setUserIDReducer,
-    user: setUserDataReducer
+    userData: setUserDataReducer
 })
 
 

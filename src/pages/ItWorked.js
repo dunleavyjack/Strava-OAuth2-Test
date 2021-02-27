@@ -1,18 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-const ItWorked = props => {
-    console.log(props)
-    return (
-        <div>
-            <h1>It worked!</h1>
-            {/* <h2>{user.data.all_run_totals.distance}</h2> */}
-        </div>
-    )
+class ItWorked extends React.Component {
+    render(){
+        return(
+            <div>
+                <h1>It worked!</h1>
+                <h2>{this.props.userData.data.all_run_totals.distance}</h2>
+            </div>
+        )
+    }
 }
 
 const mapStateToProps = state => {
-    return { user: state.user }
+    return { userData: state.userData}
 };
 
 export default connect(mapStateToProps)(ItWorked)
