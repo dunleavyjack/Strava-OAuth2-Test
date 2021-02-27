@@ -9,7 +9,7 @@ const authTokenURLReducer = (authTokenURL = null, action) => {
     }
 }
 
-const getRefreshTokenReducer = (refreshToken = null, action) => {
+const setRefreshTokenReducer = (refreshToken = null, action) => {
     switch (action.type) {
         case 'SET_REFRESH_TOKEN':
             return action.payload
@@ -18,7 +18,7 @@ const getRefreshTokenReducer = (refreshToken = null, action) => {
     }
 }
 
-const getAccessTokenReducer = (accessToken = null, action) => {
+const setAccessTokenReducer = (accessToken = null, action) => {
     switch (action.type) {
         case 'SET_ACCESS_TOKEN':
             return action.payload
@@ -27,7 +27,7 @@ const getAccessTokenReducer = (accessToken = null, action) => {
     }
 }
 
-const getUserIDReducer = (userID=null, action) => {
+const setUserIDReducer = (userID=null, action) => {
     switch (action.type) {
         case 'SET_USER_ID':
             return action.payload
@@ -36,9 +36,24 @@ const getUserIDReducer = (userID=null, action) => {
     }
 }
 
+const setUserDataReducer = (userData=null, action) => {
+    if(action.type === 'SET_USER_DATA'){
+        return action.payload
+    }
+    return userData
+}
+
 export default combineReducers({
     authTokenURL: authTokenURLReducer,
-    refreshToken: getRefreshTokenReducer,
-    accessToken: getAccessTokenReducer,
-    userID: getUserIDReducer
+    refreshToken: setRefreshTokenReducer,
+    accessToken: setAccessTokenReducer,
+    userID: setUserIDReducer,
+    user: setUserDataReducer
 })
+
+
+// switch (action.type) {
+//     case 'SET_USER_DATA':
+//         return action.payload
+//     default: 
+//         return userData
