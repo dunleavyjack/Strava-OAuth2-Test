@@ -22,10 +22,9 @@ const StravaRedirect = ({ history, location, setAuthTokens }) => {
             }
         }
         getThoseDamnTokens()
-    }, []);
+    }, [])
     return null;
 };
-
 
 const mapStateToProps = state => {
     return { authTokenURL: state.authTokenURL };

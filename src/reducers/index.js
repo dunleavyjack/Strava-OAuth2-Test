@@ -7,7 +7,16 @@ const authTokenURLReducer = (authTokenURL = null, action) => {
     return authTokenURL
 }
 
+const refreshTokenReducer = (refreshToken = null, action) => {
+    if (action.type === 'GET_REFRESH_TOKEN') {
+        return action.payload
+    }
+    return refreshToken
+}
+
+
 
 export default combineReducers({
-    authTokenURL: authTokenURLReducer
+    authTokenURL: authTokenURLReducer,
+    refreshToken: refreshTokenReducer 
 })
