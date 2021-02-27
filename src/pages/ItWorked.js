@@ -1,7 +1,9 @@
-import React from 'react'
+import axios from 'axios'
+import {React, useState, useEffect} from 'react'
 import { connect } from 'react-redux'
 
-const ItWorked = () => {
+const ItWorked = (props) => {
+    console.log(props)
     return (
         <div>
             <h1>It worked!</h1>
