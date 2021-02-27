@@ -2,7 +2,7 @@ import { React, useEffect } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux'
 import { setAccessToken, setAuthTokens, setRefreshToken, setUserID } from '../actions'
-import { cleanUpAuthToken, testAuthGetter } from '../utils/functions'
+import { cleanUpAuthToken, testAuthGetter, getUserData } from '../utils/functions'
 
 const StravaRedirect = ({ history, location, setAuthTokens }) => {
     useEffect(() => {
@@ -21,12 +21,20 @@ const StravaRedirect = ({ history, location, setAuthTokens }) => {
                 const tokens = await testAuthGetter(stravaAuthToken)
 
                 // Add new tokens to the store to be used later
-                setAccessToken(tokens.refresh_token)
-                setRefreshToken(tokens.refresh_token)
-                setUserID(tokens.athlete.id)
+                const accessToken = tokens.access_token
+                const refreshToken = tokens.refresh_token
+                const userID = tokens.athlete.id
+                console.log('ids below')
+                console.log(userID)
+                console.log(accessToken)
+
+
+                setAccessToken(accessToken)
+                setRefreshToken(refreshToken)
+                setUserID(userID)
 
                 // Axios request to get users info
-                
+                const userData = await getUserData(userID, accessToken)
 
                 // Once complete, go to display page
                 history.push('/itworked');
