@@ -1,13 +1,13 @@
-export const setUserData = data => {
+export const setUserActivities = data => {
     return {
-        type: 'SET_USER_DATA',
+        type: 'SET_USER_ACTIVITIES',
         payload: data
     }
 }
 
-export const setReturnTokens = data => {
+export const setUser = data => {
     return {
-        type: 'SET_RETURN_TOKENS',
+        type: 'SET_USER',
         payload: data
     }
 }

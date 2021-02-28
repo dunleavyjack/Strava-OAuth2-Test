@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux'
-import { setUserData, setReturnTokens } from '../actions'
+import { setUser, setUserActivities } from '../actions'
 import { cleanUpAuthToken, testAuthGetter, getUserData } from '../utils/functions'
 
 class StravaRedirect extends React.Component {
@@ -20,13 +20,13 @@ class StravaRedirect extends React.Component {
                 // Post Request to Strava (with AuthToken) which returns Refresh Token and and Access Token
                 const tokens = await testAuthGetter(stravaAuthToken)
 
-                this.props.setReturnTokens(tokens)
+                this.props.setUser(tokens)
                 const accessToken = tokens.access_token
                 const userID = tokens.athlete.id
 
                 // Axios request to get users info
                 const user = await getUserData(userID, accessToken)
-                this.props.setUserData(user)
+                this.props.setUserActivities(user)
                 console.log(this.props)
                 
                 
@@ -53,6 +53,6 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, {
-    setUserData,
-    setReturnTokens
+    setUserActivities,
+    setUser
 })(StravaRedirect);
