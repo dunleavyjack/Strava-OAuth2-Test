@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from '../pages/Home'
 import StravaRedirect from '../pages/StravaRedirect'
-import ItWorked from '../pages/ItWorked'
+import YourDistance from '../pages/YourDistance'
 
 class AppRouter extends React.Component {
     render() {
@@ -12,7 +12,7 @@ class AppRouter extends React.Component {
                     <Switch>
                         <Route path="/" component={Home} exact={true} />
                         <Route path="/redirect" component={StravaRedirect}/>
-                        <Route path="/itworked" component={ItWorked}/>
+                        <Route path="/yourdistance" component={YourDistance}/>
                     </Switch>
                 </div>
             </BrowserRouter>

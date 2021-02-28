@@ -1,12 +1,12 @@
 import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux'
-import { setUserData } from '../actions'
+import { setUserData, setReturnTokens } from '../actions'
 import { cleanUpAuthToken, testAuthGetter, getUserData } from '../utils/functions'
 
 class StravaRedirect extends React.Component {
     componentDidMount() {
-        const getThoseDamnTokens = async () => {
+        const authenticate = async () => {
             const { history, location} = this.props
             try {
                 // If not redirected to Strava, return to home
@@ -14,28 +14,29 @@ class StravaRedirect extends React.Component {
                     return history.push('/');
                 }
 
-                // Save the Auth Token to the Store
+                // Save the Auth Token to the Store (it's located under 'search' for some reason)
                 const stravaAuthToken = cleanUpAuthToken(location.search)
 
                 // Post Request to Strava (with AuthToken) which returns Refresh Token and and Access Token
                 const tokens = await testAuthGetter(stravaAuthToken)
 
+                this.props.setReturnTokens(tokens)
                 const accessToken = tokens.access_token
                 const userID = tokens.athlete.id
 
                 // Axios request to get users info
-                const userData = await getUserData(userID, accessToken)
-                this.props.setUserData(userData)
+                const user = await getUserData(userID, accessToken)
+                this.props.setUserData(user)
                 console.log(this.props)
                 
                 
                 // Once complete, go to display page
-                history.push('/itworked');
+                history.push('/yourdistance');
             } catch (error) {
                 history.push('/');
             }
         }
-        getThoseDamnTokens()
+        authenticate()
     }
 
     render() {
@@ -52,5 +53,6 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, {
-    setUserData
+    setUserData,
+    setReturnTokens
 })(StravaRedirect);
