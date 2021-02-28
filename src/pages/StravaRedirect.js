@@ -19,16 +19,13 @@ class StravaRedirect extends React.Component {
 
                 // Post Request to Strava (with AuthToken) which returns Refresh Token and and Access Token
                 const tokens = await testAuthGetter(stravaAuthToken)
-
                 this.props.setUser(tokens)
                 const accessToken = tokens.access_token
                 const userID = tokens.athlete.id
 
                 // Axios request to get users info
                 const user = await getUserData(userID, accessToken)
-                this.props.setUserActivities(user)
-                console.log(this.props)
-                
+                this.props.setUserActivities(user)                
                 
                 // Once complete, go to display page
                 history.push('/yourdistance');
