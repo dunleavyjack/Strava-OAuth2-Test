@@ -1,6 +1,7 @@
 import React from "react";
 import _ from "lodash";
 import { connect } from "react-redux";
+
 import { setUser, setUserActivities } from "../actions";
 import {
     cleanUpAuthToken,
